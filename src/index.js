@@ -1,4 +1,4 @@
 import './style.css';
-import loadMovies from './displayItems.js';
+import loadMovies from './modules/displayItems.js';
 
 loadMovies();
