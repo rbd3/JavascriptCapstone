@@ -34,3 +34,18 @@ body {
 .btn-flex {
   margin: 0 4rem;
 }
+
+/* popup window */
+
+.popup {
+  display: none;
+  background-color: rgb(193, 199, 208, 0.5);
+  backdrop-filter: blur(5px);
+  position: fixed;
+  padding-top: 15px;
+  top: 0;
+  right: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: auto;
+}
