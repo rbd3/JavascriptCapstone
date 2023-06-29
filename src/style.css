@@ -34,3 +34,10 @@ body {
 .btn-flex {
   margin: 0 4rem;
 }
+
+.count {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2.5rem;
+}
