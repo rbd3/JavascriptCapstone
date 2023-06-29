@@ -1,5 +1,3 @@
-import { createComment, getComments } from './commentCount.js';
-
 const generatePopupContent = (data) => `
     <div class="popup-content container">
       <i class="fa-solid fa-xmark close-btn"></i>

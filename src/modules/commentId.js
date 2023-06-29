@@ -1,4 +1,3 @@
-
 const createApp = async () => {
   try {
     const response = await fetch(
@@ -12,9 +11,7 @@ const createApp = async () => {
     );
 
     const appId = await response.text();
-    console.log('App ID:', appId);
   } catch (error) {
-    console.error('Error:', error);
   }
 };
 
