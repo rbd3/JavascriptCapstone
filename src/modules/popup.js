@@ -1,3 +1,5 @@
+import { createComment, getComments } from './commentCount.js';
+
 const generatePopupContent = (data) => `
     <div class="popup-content container">
       <i class="fa-solid fa-xmark close-btn"></i>
@@ -16,7 +18,7 @@ const generatePopupContent = (data) => `
 
     <div class="add-comment-box">
       <h3 class="add-comment-title">Add a comment</h3>
-      <form class="add-comment">
+      <form class="add-comment" id="add-comment">
         <input
           type="text"
           name="userName"
@@ -71,5 +73,35 @@ const openPopup = () => {
     }
   });
 };
+
+function addComment(e) {
+  e.preventDefault(); // Prevent the form from submitting
+
+  const username = document.querySelector('#userName').value;
+  const userComments = document.querySelector('#userComment').value;
+  const dataId = e.target.getAttribute('data-id');
+  const appId = 'h1Iop89yNbiyVQkls8Iz';
+
+  createComment(appId, dataId, username, userComments)
+    .then(() => {
+      const today = new Date();
+      const html = `<p class="comments-text">${today.getFullYear()}-${
+        today.getMonth() + 1
+      }-${today.getDate()} ${username}: ${userComments}</p>`;
+      document
+        .querySelector('.comments-wrapper')
+        .insertAdjacentHTML('beforeend', html);
+      e.target.reset();
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  const comContainer = document.querySelector('#add-comment');
+  comContainer?.addEventListener('submit', addComment);
+  console.log('dkjfjkdnkj');
+});
 
 export default openPopup;
