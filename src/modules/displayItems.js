@@ -7,7 +7,8 @@ const loadMovies = async () => {
   // let displayImage = ;
   data.forEach((item) => {
     const card = document.createElement('div');
-    card.className = 'col-md-4 card gap-10';
+    card.className = 'card spacing';
+    card.style = 'width: 18rem';
     card.innerHTML = `
             <img src="${item.image.original}" class="card-img-top" alt="...">
             <ul class="list-group list-group-flush">
