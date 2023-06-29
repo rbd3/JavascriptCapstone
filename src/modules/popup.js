@@ -11,7 +11,7 @@ const generatePopupContent = (data) => `
     </div>
 
     <div class="comments-box">
-      <h3 class="comments-title">Comments (2)</h3>
+      <h3 class="comments-title">Comments</h3>
       <div class="comments-wrapper">
       </div>
     </div>
@@ -92,6 +92,11 @@ function addComment(e) {
         .querySelector('.comments-wrapper')
         .insertAdjacentHTML('beforeend', html);
       e.target.reset();
+
+      // Update comment count
+      const commentsCount = document.querySelectorAll('.comments-text').length;
+      document.querySelector('.comments-title').textContent = `Comments (${commentsCount})`;
+
     })
     .catch((err) => {
       console.error(err);
