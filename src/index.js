@@ -5,6 +5,5 @@ import openPopup from './modules/popup.js';
 loadMovies();
 
 document.addEventListener('DOMContentLoaded', () => {
-    openPopup();
-  });
-  
+  openPopup();
+});

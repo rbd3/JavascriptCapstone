@@ -1,5 +1,4 @@
-const generatePopupContent = (data, id) => {
-  return `
+const generatePopupContent = (data) => `
     <div class="popup-content container">
       <i class="fa-solid fa-xmark close-btn"></i>
       <img src="${data.image.medium}" alt="#" class="popup-image" />
@@ -35,7 +34,6 @@ const generatePopupContent = (data, id) => {
       </form>
     </div>
   `;
-};
 
 const openPopup = () => {
   const itemContainer = document.querySelector('.item-container');
@@ -55,12 +53,12 @@ const openPopup = () => {
 
       const button = event.target;
       const episodeId = button.getAttribute('data-episode-id'); // Get the episode ID from the button's data attribute
-      const episodeData = episodesData.find((episode) => episode.id === parseInt(episodeId, 10)); // Find the episode data based on the episode ID
+      const episodeData = episodesData.find((episode) => episode.id === parseInt(episodeId, 10));
 
       const popupContent = generatePopupContent(episodeData, episodeData.id);
 
       const popup = document.getElementById('popup');
-      
+
       popup.innerHTML = popupContent;
       body.appendChild(popup);
 
