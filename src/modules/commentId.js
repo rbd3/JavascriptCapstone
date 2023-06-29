@@ -7,7 +7,7 @@ const createApp = async () => {
         headers: {
           'Content-Type': 'application/json',
         },
-      }
+      },
     );
 
     const appId = await response.text();
