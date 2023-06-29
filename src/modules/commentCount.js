@@ -1,6 +1,6 @@
 const appId = 'h1Iop89yNbiyVQkls8Iz';
 
-async function createComment(appId, itemId, userName, userComment) {
+async function createComment(itemId, userName, userComment) {
   try {
     const res = await fetch(
       `https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/${appId}/comments`,

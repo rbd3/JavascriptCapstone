@@ -1,3 +1,5 @@
+import { createComment, getComments } from './commentCount.js';
+
 const generatePopupContent = (data) => `
     <div class="popup-content container">
       <i class="fa-solid fa-xmark close-btn"></i>
@@ -71,5 +73,38 @@ const openPopup = () => {
     }
   });
 };
+
+function addComment(e) {
+  e.preventDefault(); // Prevent the form from submitting
+
+  const username = document.querySelector('#userName').value;
+  const userComments = document.querySelector('#userComment').value;
+  const dataId = e.target.getAttribute('data-id');
+  const appId = 'h1Iop89yNbiyVQkls8Iz';
+
+  createComment(appId, dataId, username, userComments)
+    .then(() => {
+      const today = new Date();
+      const html = `<p class="comments-text">${today.getFullYear()}-${
+        today.getMonth() + 1
+      }-${today.getDate()} ${username}: ${userComments}</p>`;
+      document
+        .querySelector('.comments-wrapper')
+        .insertAdjacentHTML('beforeend', html);
+      e.target.reset();
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+}
+
+document.addEventListener('click', () => {
+  const button2 = document.querySelector('.submitComment');
+  button2?.addEventListener('click', () => {
+  const comContainer = document.querySelector('#add-comment');
+  comContainer?.addEventListener('submit', addComment);
+  console.log('dkjfjkdnkj');
+  });
+});
 
 export default openPopup;
