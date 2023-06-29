@@ -4,4 +4,3 @@ import openPopup from './modules/popup.js';
 
 loadMovies();
 openPopup();
-

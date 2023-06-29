@@ -11,7 +11,9 @@ const createApp = async () => {
     );
 
     const appId = await response.text();
+    return appId;
   } catch (error) {
+    return error;
   }
 };
 

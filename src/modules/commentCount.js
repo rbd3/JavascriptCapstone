@@ -26,7 +26,7 @@ async function createComment(appId, itemId, userName, userComment) {
 async function getComments(appId, itemId) {
   try {
     const res = await fetch(
-      `https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/${appId}/comments?item_id=${itemId}`
+      `https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/${appId}/comments?item_id=${itemId}`,
     );
     if (!res.ok) throw new Error('Cannot get comment for id ', itemId);
     const data = await res.json();
