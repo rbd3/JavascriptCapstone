@@ -57,6 +57,7 @@ const openPopup = () => {
       const episodeId = button.getAttribute('data-episode-id'); // Get the episode ID from the button's data attribute
       const episodeData = episodesData.find((episode) => episode.id === parseInt(episodeId, 10));
 
+      const comments = await getComments('h1Iop89yNbiyVQkls8Iz', episodeData.id);
       const popupContent = generatePopupContent(episodeData, episodeData.id);
 
       const popup = document.getElementById('popup');
@@ -108,7 +109,6 @@ document.addEventListener('click', () => {
   button2?.addEventListener('click', () => {
   const comContainer = document.querySelector('#add-comment');
   comContainer?.addEventListener('submit', addComment);
-  console.log('dkjfjkdnkj');
   });
 });
 
