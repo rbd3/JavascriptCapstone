@@ -8,6 +8,32 @@ const generatePopupContent = (data, id) => {
       <p class="popup-airdate">Airdate: ${data.airdate}</p>
       <p class="popup-summary">Summary: ${data.summary}</p>
     </div>
+
+    <div class="comments-box">
+      <h3 class="comments-title">Comments (2)</h3>
+      <div class="comments-wrapper">
+      </div>
+    </div>
+
+    <div class="add-comment-box">
+      <h3 class="add-comment-title">Add a comment</h3>
+      <form class="add-comment">
+        <input
+          type="text"
+          name="userName"
+          id="userName"
+          placeholder="Your name"
+        />
+        <textarea
+          name="userComment"
+          id="userComment"
+          cols="30"
+          rows="5"
+          placeholder="Your insights"
+        ></textarea>
+        <button type="submit" class="submitComment">Comment</button>
+      </form>
+    </div>
   `;
 };
 
@@ -34,6 +60,7 @@ const openPopup = () => {
       const popupContent = generatePopupContent(episodeData, episodeData.id);
 
       const popup = document.getElementById('popup');
+      
       popup.innerHTML = popupContent;
       body.appendChild(popup);
 
