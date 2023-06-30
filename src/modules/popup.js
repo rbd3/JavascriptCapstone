@@ -21,7 +21,7 @@ const generatePopupContent = (data) => {
 
     <div class="add-comment-box">
       <h3 class="add-comment-title">Add a comment</h3>
-      <form class="add-comment" id="add-comment">
+      <form class="add-comment" id="add-comment" data-id="${data.id}">
         <input
           type="text"
           name="userName"
