@@ -38,3 +38,10 @@ body {
 .red-heart {
   color: red;
 }
+
+.count {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2rem;
+}
