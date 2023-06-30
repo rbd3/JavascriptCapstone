@@ -1,10 +1,8 @@
 import { createComment, getComments } from './commentCount.js';
 
-
-
-const generatePopupContent = (data) => {
+const generatePopupContent = (data) =>
   // Generate the popup content HTML
-  return `
+  `
     <div class="popup-content container">
       <i class="fa-solid fa-xmark close-btn"></i>
       <img src="${data.image.medium}" alt="#" class="popup-image" />
@@ -39,8 +37,6 @@ const generatePopupContent = (data) => {
       </form>
     </div>
   `;
-};
-
 const loadComments = async (itemId) => {
   try {
     const commentsWrapper = document.querySelector('.comments-wrapper');
@@ -56,7 +52,6 @@ const loadComments = async (itemId) => {
         `;
         commentsWrapper.insertAdjacentHTML('beforeend', commentHtml);
       });
-      
     }
 
     const commentsCount = data.length;
@@ -107,12 +102,10 @@ const openPopup = async () => {
 };
 
 export const totalComment = () => {
-  
   // Update comment count
   const commentsCount = document.querySelectorAll('.comments-text').length;
   document.querySelector('.comments-title').textContent = `Comments (${commentsCount})`;
-}
-
+};
 
 function addComment(e) {
   e.preventDefault(); // Prevent the form from submitting
@@ -120,7 +113,6 @@ function addComment(e) {
   const username = document.querySelector('#userName').value;
   const userComments = document.querySelector('#userComment').value;
   const dataId = e.target.getAttribute('data-id');
- 
 
   createComment(dataId, username, userComments)
     .then(() => {
@@ -145,6 +137,5 @@ document.addEventListener('click', () => {
     comContainer?.addEventListener('submit', addComment);
   });
 });
-
 
 export default openPopup;
