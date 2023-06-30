@@ -12,7 +12,6 @@
   - [🛠 Built With ](#-built-with-)
     - [Tech Stack ](#tech-stack-)
     - [Key Features ](#key-features-)
-  - [🚀 Live Demo ](#-live-demo-)
   - [💻 Getting Started ](#-getting-started-)
     - [Prerequisites](#prerequisites)
     - [Setup](#setup)
@@ -57,14 +56,7 @@ The TV-ShoW Episodes website is a platform that provides information about vario
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-<!-- LIVE DEMO -->
-
-## 🚀 Live Demo <a name="live-demo"></a>
-
-- [Live Demo Link]()
-- [Video Walkthrough]()
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+- [Video Walkthrough](https://drive.google.com/file/d/1V7jnvEU1YfLE8FCFY61HjjHZhkLAoBao/view?usp=drive_link)
 
 <!-- GETTING STARTED -->
 
@@ -119,7 +111,9 @@ You can deploy this project using: GitHub Pages
 - Twitter: [@Narson321](https://twitter.com/@Narson321)
 - LinkedIn: [@Andry Narson Rabedesana](https://linkedin.com/in/andry-narson-rabedesana-15b8b4248)
 
-👤 **Author 2**
+👤 **Olanike Olatunji**
+- GitHub: [@olanikegloria](https://github.com/olanikegloria)
+- LinkedIn: [@olanike olatunji](https://www.linkedin.com/in/olanike-olatunji-81a6921b1/)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
