@@ -109,3 +109,7 @@ textarea {
   font-size: 24px;
   border: 3px solid black;
 }
+
+#heart-btn {
+  cursor: pointer;
+}
