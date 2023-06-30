@@ -35,6 +35,22 @@ const generatePopupContent = (data) => `
       </form>
     </div>
   `;
+
+  export const totalComment = () => {
+    // Update comment count
+    const commentsTextElements = document.querySelectorAll('.comments-text');
+    const commentsCount = commentsTextElements ? commentsTextElements.length : 0;
+    const commentsTitle = document.querySelector('.comments-title');
+    
+    if (commentsTitle) {
+      if (commentsCount > 0) {
+        commentsTitle.textContent = `Comments (${commentsCount})`;
+      } else {
+        commentsTitle.textContent = 'Comments (0)';
+      }
+    }
+  };
+  
 const loadComments = async (itemId) => {
   try {
     const commentsWrapper = document.querySelector('.comments-wrapper');
@@ -51,9 +67,8 @@ const loadComments = async (itemId) => {
         commentsWrapper.insertAdjacentHTML('beforeend', commentHtml);
       });
     }
+        totalComment();
 
-    const commentsCount = data.length;
-    document.querySelector('.comments-title').textContent = `Comments (${commentsCount})`;
   } catch (err) {
     console.error('Error loading comments:', err);
   }
@@ -99,11 +114,7 @@ const openPopup = async () => {
   });
 };
 
-export const totalComment = () => {
-  // Update comment count
-  const commentsCount = document.querySelectorAll('.comments-text').length;
-  document.querySelector('.comments-title').textContent = `Comments (${commentsCount})`;
-};
+
 
 function addComment(e) {
   e.preventDefault(); // Prevent the form from submitting
