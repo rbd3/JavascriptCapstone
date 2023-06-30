@@ -1,9 +1,6 @@
 import './style.css';
 import loadMovies from './modules/displayItems.js';
-import openPopup from './modules/popup.js';
+import movieCount from './modules/movieCount.js';
 
 loadMovies();
-
-document.addEventListener('DOMContentLoaded', () => {
-  openPopup();
-});
+movieCount();
