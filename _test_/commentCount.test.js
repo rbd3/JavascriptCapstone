@@ -1,20 +1,22 @@
-import totalComment from '../src/modules/popup.js';
+// Import necessary modules and dependencies
+import { totalComment } from '../src/modules/popup.js';
 
-const simulateDOM = () => {
-  const span = document.createElement('span');
-  span.id = 'comments-1';
-  document.body.appendChild(span);
-};
+// Mock the necessary DOM elements
+document.body.innerHTML = `
+  <div class="comments-title"></div>
+  <div class="comments-text"></div>
+  <div class="comments-text"></div>
+  <div class="comments-text"></div>
+`;
 
-simulateDOM();
+describe('totalComment', () => {
+  test('should update the comment count in the comments-title element', () => {
+    
+    totalComment();
 
-const dummyArray = ['comment1', 'comment2', 'comment3'];
+    const commentsTitle = document.querySelector('.comments-title');
+    const commentsCount = parseInt(commentsTitle.textContent.match(/\d+/)[0], 10);
 
-describe('totalCommentsCounter', () => {
-    totalComment(dummyArray.length, 1);
-  const span = document.querySelector('#comments-1');
-
-  test('should put the right amount of total items', () => {
-    expect(span.innerHTML).toBe(`${dummyArray.length} comments,`);
+    expect(commentsCount).toBe(3);
   });
 });

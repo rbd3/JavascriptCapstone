@@ -1,6 +1,8 @@
 import { createComment, getComments } from './commentCount.js';
 
-const generatePopupContent = (data) => `
+const generatePopupContent = (data) => {
+  // Generate the popup content HTML
+  return `
     <div class="popup-content container">
       <i class="fa-solid fa-xmark close-btn"></i>
       <img src="${data.image.medium}" alt="#" class="popup-image" />
@@ -12,8 +14,7 @@ const generatePopupContent = (data) => `
 
     <div class="comments-box">
       <h3 class="comments-title">Comments</h3>
-      <div class="comments-wrapper">
-      </div>
+      <div class="comments-wrapper"></div>
     </div>
 
     <div class="add-comment-box">
@@ -36,8 +37,37 @@ const generatePopupContent = (data) => `
       </form>
     </div>
   `;
+};
 
-const openPopup = () => {
+const loadComments = async (appId, itemId) => {
+  try {
+    const commentsWrapper = document.querySelector('.comments-wrapper');
+    const data = await getComments(appId, itemId);
+
+    // Clear existing comments
+    commentsWrapper.innerHTML = '';
+
+    if (data.length === 0) {
+      // No comments available
+      commentsWrapper.innerHTML = '<p>No comments available.</p>';
+    } else {
+      // Render comments
+      data.forEach((comment) => {
+        const commentHtml = `
+          <p class="comments-text">${comment.creation_date} ${comment.username}: ${comment.comment}</p>
+        `;
+        commentsWrapper.insertAdjacentHTML('beforeend', commentHtml);
+      });
+    }
+
+    const commentsCount = data.length;
+    document.querySelector('.comments-title').textContent = `Comments (${commentsCount})`;
+  } catch (err) {
+    console.error('Error loading comments:', err);
+  }
+};
+
+const openPopup = async () => {
   const itemContainer = document.querySelector('.item-container');
   const body = document.querySelector('#expandable');
   let episodesData; // Variable to store the fetched episodes data
@@ -57,7 +87,6 @@ const openPopup = () => {
       const episodeId = button.getAttribute('data-episode-id'); // Get the episode ID from the button's data attribute
       const episodeData = episodesData.find((episode) => episode.id === parseInt(episodeId, 10));
 
-      const comments = await getComments('h1Iop89yNbiyVQkls8Iz', episodeData.id);
       const popupContent = generatePopupContent(episodeData, episodeData.id);
 
       const popup = document.getElementById('popup');
@@ -71,9 +100,21 @@ const openPopup = () => {
       });
 
       popup.style.display = 'block';
+
+      // Load comments
+      const appId = 'h1Iop89yNbiyVQkls8Iz';
+      await loadComments(appId, episodeData.id);
     }
   });
 };
+
+export const totalComment = () => {
+  
+  // Update comment count
+  const commentsCount = document.querySelectorAll('.comments-text').length;
+  document.querySelector('.comments-title').textContent = `Comments (${commentsCount})`;
+}
+
 
 function addComment(e) {
   e.preventDefault(); // Prevent the form from submitting
@@ -89,15 +130,10 @@ function addComment(e) {
       const html = `<p class="comments-text">${today.getFullYear()}-${
         today.getMonth() + 1
       }-${today.getDate()} ${username}: ${userComments}</p>`;
-      document
-        .querySelector('.comments-wrapper')
-        .insertAdjacentHTML('beforeend', html);
+      document.querySelector('.comments-wrapper').insertAdjacentHTML('beforeend', html);
       e.target.reset();
 
-      // Update comment count
-      const commentsCount = document.querySelectorAll('.comments-text').length;
-      document.querySelector('.comments-title').textContent = `Comments (${commentsCount})`;
-
+      totalComment();
     })
     .catch((err) => {
       console.error(err);
@@ -107,9 +143,10 @@ function addComment(e) {
 document.addEventListener('click', () => {
   const button2 = document.querySelector('.submitComment');
   button2?.addEventListener('click', () => {
-  const comContainer = document.querySelector('#add-comment');
-  comContainer?.addEventListener('submit', addComment);
+    const comContainer = document.querySelector('#add-comment');
+    comContainer?.addEventListener('submit', addComment);
   });
 });
+
 
 export default openPopup;
