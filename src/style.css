@@ -45,3 +45,7 @@ body {
   justify-content: center;
   margin-top: 2rem;
 }
+
+#heart-btn {
+  cursor: pointer;
+}
