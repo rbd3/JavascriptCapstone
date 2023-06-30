@@ -23,7 +23,7 @@ async function createComment(itemId, userName, userComment) {
   }
 }
 
-async function getComments(appId, itemId) {
+async function getComments(itemId) {
   try {
     const res = await fetch(
       `https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/${appId}/comments?item_id=${itemId}`,

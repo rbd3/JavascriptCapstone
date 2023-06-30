@@ -1,5 +1,7 @@
 import { createComment, getComments } from './commentCount.js';
 
+
+
 const generatePopupContent = (data) => {
   // Generate the popup content HTML
   return `
@@ -39,25 +41,22 @@ const generatePopupContent = (data) => {
   `;
 };
 
-const loadComments = async (appId, itemId) => {
+const loadComments = async (itemId) => {
   try {
     const commentsWrapper = document.querySelector('.comments-wrapper');
-    const data = await getComments(appId, itemId);
+    const data = await getComments(itemId);
 
     // Clear existing comments
     commentsWrapper.innerHTML = '';
 
-    if (data.length === 0) {
-      // No comments available
-      commentsWrapper.innerHTML = '<p>No comments available.</p>';
-    } else {
-      // Render comments
+    if (data.length > 0) {
       data.forEach((comment) => {
         const commentHtml = `
           <p class="comments-text">${comment.creation_date} ${comment.username}: ${comment.comment}</p>
         `;
         commentsWrapper.insertAdjacentHTML('beforeend', commentHtml);
       });
+      
     }
 
     const commentsCount = data.length;
@@ -102,8 +101,7 @@ const openPopup = async () => {
       popup.style.display = 'block';
 
       // Load comments
-      const appId = 'h1Iop89yNbiyVQkls8Iz';
-      await loadComments(appId, episodeData.id);
+      await loadComments(episodeData.id);
     }
   });
 };
@@ -122,9 +120,9 @@ function addComment(e) {
   const username = document.querySelector('#userName').value;
   const userComments = document.querySelector('#userComment').value;
   const dataId = e.target.getAttribute('data-id');
-  const appId = 'h1Iop89yNbiyVQkls8Iz';
+ 
 
-  createComment(appId, dataId, username, userComments)
+  createComment(dataId, username, userComments)
     .then(() => {
       const today = new Date();
       const html = `<p class="comments-text">${today.getFullYear()}-${

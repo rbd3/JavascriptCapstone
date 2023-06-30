@@ -1,4 +1,3 @@
-// Import necessary modules and dependencies
 import { totalComment } from '../src/modules/popup.js';
 
 // Mock the necessary DOM elements
@@ -11,7 +10,6 @@ document.body.innerHTML = `
 
 describe('totalComment', () => {
   test('should update the comment count in the comments-title element', () => {
-    
     totalComment();
 
     const commentsTitle = document.querySelector('.comments-title');
