@@ -1,3 +1,5 @@
+import { createComment, getComments } from './commentCount.js';
+
 const generatePopupContent = (data) => `
     <div class="popup-content container">
       <i class="fa-solid fa-xmark close-btn"></i>
@@ -9,14 +11,13 @@ const generatePopupContent = (data) => `
     </div>
 
     <div class="comments-box">
-      <h3 class="comments-title">Comments (2)</h3>
-      <div class="comments-wrapper">
-      </div>
+      <h3 class="comments-title">Comments</h3>
+      <div class="comments-wrapper"></div>
     </div>
 
     <div class="add-comment-box">
       <h3 class="add-comment-title">Add a comment</h3>
-      <form class="add-comment">
+      <form class="add-comment" id="add-comment" data-id="${data.id}">
         <input
           type="text"
           name="userName"
@@ -34,8 +35,31 @@ const generatePopupContent = (data) => `
       </form>
     </div>
   `;
+const loadComments = async (itemId) => {
+  try {
+    const commentsWrapper = document.querySelector('.comments-wrapper');
+    const data = await getComments(itemId);
 
-const openPopup = () => {
+    // Clear existing comments
+    commentsWrapper.innerHTML = '';
+
+    if (data.length > 0) {
+      data.forEach((comment) => {
+        const commentHtml = `
+          <p class="comments-text">${comment.creation_date} ${comment.username}: ${comment.comment}</p>
+        `;
+        commentsWrapper.insertAdjacentHTML('beforeend', commentHtml);
+      });
+    }
+
+    const commentsCount = data.length;
+    document.querySelector('.comments-title').textContent = `Comments (${commentsCount})`;
+  } catch (err) {
+    console.error('Error loading comments:', err);
+  }
+};
+
+const openPopup = async () => {
   const itemContainer = document.querySelector('.item-container');
   const body = document.querySelector('#expandable');
   let episodesData; // Variable to store the fetched episodes data
@@ -68,8 +92,48 @@ const openPopup = () => {
       });
 
       popup.style.display = 'block';
+
+      // Load comments
+      await loadComments(episodeData.id);
     }
   });
 };
+
+export const totalComment = () => {
+  // Update comment count
+  const commentsCount = document.querySelectorAll('.comments-text').length;
+  document.querySelector('.comments-title').textContent = `Comments (${commentsCount})`;
+};
+
+function addComment(e) {
+  e.preventDefault(); // Prevent the form from submitting
+
+  const username = document.querySelector('#userName').value;
+  const userComments = document.querySelector('#userComment').value;
+  const dataId = e.target.getAttribute('data-id');
+
+  createComment(dataId, username, userComments)
+    .then(() => {
+      const today = new Date();
+      const html = `<p class="comments-text">${today.getFullYear()}-${
+        today.getMonth() + 1
+      }-${today.getDate()} ${username}: ${userComments}</p>`;
+      document.querySelector('.comments-wrapper').insertAdjacentHTML('beforeend', html);
+      e.target.reset();
+
+      totalComment();
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+}
+
+document.addEventListener('click', () => {
+  const button2 = document.querySelector('.submitComment');
+  button2?.addEventListener('click', () => {
+    const comContainer = document.querySelector('#add-comment');
+    comContainer?.addEventListener('submit', addComment);
+  });
+});
 
 export default openPopup;
