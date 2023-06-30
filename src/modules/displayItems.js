@@ -24,16 +24,20 @@ const loadMovies = async () => {
     likeCount.innerHTML = `${totalLike} likes`;
     const likeBtn = card.querySelector('#heart-btn');
     likeBtn.addEventListener('click', async () => {
-      movieLikes(item.id);
       const likeCount = card.querySelector('.like-count');
       const totalLike = await addlikeCount(item.id);
-      if (totalLike) {
-        const total = Number(totalLike + 1);
-        likeCount.innerHTML = `${total} likes `;
-      } else {
-        likeCount.innerHTML = `${totalLike} likes`;
+      if (!likeBtn.classList.contains('red-heart')) {
+        movieLikes(item.id);
+        likeBtn.style.fill = 'red';
+        if (totalLike) {
+          const total = Number(totalLike + 1);
+          likeCount.innerHTML = `${total} likes `;
+        } else {
+          likeCount.innerHTML = `${totalLike} likes`;
+        }
+        console.log(totalLike);
+        likeBtn.classList.add('red-heart');
       }
-      console.log(totalLike);
     });
   });
 };
