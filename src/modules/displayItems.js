@@ -6,6 +6,7 @@ const loadMovies = async () => {
   let data = await response.json();
   data = data.splice(0, 12);
   const itemContainer = document.querySelector('.item-container');
+  // let displayImage = ;
   data.forEach(async (item) => {
     const card = document.createElement('div');
     card.className = 'card spacing';
@@ -26,7 +27,12 @@ const loadMovies = async () => {
       movieLikes(item.id);
       const likeCount = card.querySelector('.like-count');
       const totalLike = await addlikeCount(item.id);
-      likeCount.innerHTML = `${totalLike} likes`;
+      if (totalLike) {
+        const total = Number(totalLike + 1);
+        likeCount.innerHTML = `${total} likes `;
+      } else {
+        likeCount.innerHTML = `${totalLike} likes`;
+      }
       console.log(totalLike);
     });
   });

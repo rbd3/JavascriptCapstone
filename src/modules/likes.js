@@ -11,7 +11,6 @@ const movieLikes = async (id) => {
         item_id: item1,
       }),
     });
-
   const data = await response.text();
   console.log(data);
 };
