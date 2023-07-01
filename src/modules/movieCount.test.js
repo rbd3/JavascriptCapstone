@@ -1,35 +1,46 @@
-// const fetch = require('node-fetch');
-const movieCount = require('./movieCount.js'); // Replace with the actual file name
+const movieCount = require('./movieCount');
 
-jest.mock('node-fetch', () => jest.fn().mockResolvedValue({ json: jest.fn().mockResolvedValue([]) }));
+// Mock the fetch function and the response it returns
+global.fetch = jest.fn(() =>
+  Promise.resolve({
+    json: () => Promise.resolve(Array(12).fill({})),
+  })
+);
 
-describe('movieCount', () => {
-  test('should update badge innerHTML with correct count', async () => {
-    const badgeMock = {
+describe('movieCount function', () => {
+  beforeEach(() => {
+    // Clear mock calls before each test
+    global.fetch.mockClear();
+  });
+
+  test('should fetch data and update badgeElement correctly', async () => {
+    const badgeElement = {
       innerHTML: '',
     };
 
-    const responseData = [
-      { id: 1, name: 'Episode 1' },
-      { id: 2, name: 'Episode 2' },
-      { id: 3, name: 'Episode 3' },
-    ];
-    jest.spyOn(global, 'fetch').mockResolvedValueOnce({ json: jest.fn().mockResolvedValue(responseData) });
+    await movieCount(badgeElement);
 
-    await movieCount(badgeMock);
-
+    // Assert fetch function is called with the correct URL
     expect(global.fetch).toHaveBeenCalledWith('https://api.tvmaze.com/shows/1/episodes');
-    expect(parseInt(badgeMock.innerHTML, 10)).toEqual(3);
+
+    // Assert badgeElement's innerHTML is updated with the correct data length (12 in this case)
+    expect(parseInt(badgeElement.innerHTML)).toBe(12);
   });
 
-  test('should handle error and log it', async () => {
-    const consoleLogSpy = jest.spyOn(console, 'log');
 
-    jest.spyOn(global, 'fetch').mockRejectedValueOnce(new Error('Network error'));
+  test('should handle errors and log them', async () => {
+    // Mock the fetch function to throw an error
+    global.fetch = jest.fn(() => Promise.reject('Mocked error'));
+
+    // Mock the console.log function to prevent logs from being displayed during tests
+    console.log = jest.fn();
 
     await movieCount({});
 
+    // Assert fetch function is called with the correct URL
     expect(global.fetch).toHaveBeenCalledWith('https://api.tvmaze.com/shows/1/episodes');
-    expect(consoleLogSpy).toHaveBeenCalledWith(new Error('Network error'));
+
+    // Assert that the error is logged
+    expect(console.log).toHaveBeenCalledWith('Mocked error');
   });
 });
