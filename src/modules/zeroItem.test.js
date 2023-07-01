@@ -1,11 +1,9 @@
 const movieCount = require('./movieCount.js');
 
 // Mock the fetch function and the response it returns
-global.fetch = jest.fn(() =>
-  Promise.resolve({
-    json: () => Promise.resolve([]), // Simulate an empty response
-  })
-);
+global.fetch = jest.fn(() => Promise.resolve({
+  json: () => Promise.resolve([]), // Simulate an empty response
+}));
 
 describe('movieCount function', () => {
   beforeEach(() => {
@@ -20,9 +18,8 @@ describe('movieCount function', () => {
 
     await movieCount(badgeElement);
 
-
     expect(global.fetch).toHaveBeenCalledWith('https://api.tvmaze.com/shows/1/episodes');
 
-    expect(parseInt(badgeElement.innerHTML)).toBe(0);
+    expect(parseInt(badgeElement.innerHTML, 10)).toBe(0);
   });
 });
