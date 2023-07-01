@@ -4,7 +4,8 @@ const generatePopupContent = (data) => `
     <div class="popup-content container">
       <i class="fa-solid fa-xmark close-btn"></i>
       <img src="${data.image.medium}" alt="#" class="popup-image" />
-      <h3 class="popup-name">Name: ${data.name}</h3>
+      <div class="popup-wraper2">
+      <h3 class="popup-name"> ${data.name}</h3>
       <p class="popup-season">Season: ${data.season}</p>
       <p class="popup-airdate">Airdate: ${data.airdate}</p>
       <p class="popup-summary">Summary: ${data.summary}</p>
