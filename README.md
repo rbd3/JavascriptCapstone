@@ -56,7 +56,10 @@ The TV-ShoW Episodes website is a platform that provides information about vario
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
+### Live Demo <a name="#live-demo"></a>
+-[Live demo link](https://tv-show-episodes.onrender.com)
 - [Video Walkthrough](https://drive.google.com/file/d/1V7jnvEU1YfLE8FCFY61HjjHZhkLAoBao/view?usp=drive_link)
+- <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- GETTING STARTED -->
 
